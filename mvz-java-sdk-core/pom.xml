@@ -7,16 +7,16 @@
     <parent>
         <groupId>com.movilizer</groupId>
         <artifactId>mvz-java-sdk-pom</artifactId>
-        <version>5.0.1</version>
+        <version>5.1.0</version>
     </parent>
 
     <artifactId>mvz-java-sdk-core</artifactId>
-    <version>5.0.1</version>
+    <version>5.1.0</version>
     <dependencies>
         <dependency>
             <groupId>com.movilizer</groupId>
             <artifactId>mvz-java-sdk-ws</artifactId>
-            <version>5.0.1</version>
+            <version>5.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
