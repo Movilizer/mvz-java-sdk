@@ -16,19 +16,23 @@ import static com.movilizer.util.json.JsonUtils.parseJsonArray;
 
 public class JsonMobileProjectManager implements IMobileProjectManager {
     private final Provider<Reader> projectDataReaderProvider;
-    private final Provider<Reader> projectEventsReaderProvider;
+    private final boolean skipInitProject;
 
-    public JsonMobileProjectManager(Provider<Reader> projectDataReaderProvider) {
-        this(projectDataReaderProvider, null);
+    public JsonMobileProjectManager(Provider<Reader> projectDataReaderProvider, boolean skipInitProject) {
+        this.projectDataReaderProvider = projectDataReaderProvider;
+        this.skipInitProject = skipInitProject;
     }
 
-    public JsonMobileProjectManager(Provider<Reader> projectDataReaderProvider, Provider<Reader> projectEventsReaderProvider) {
-        this.projectDataReaderProvider = projectDataReaderProvider;
-        this.projectEventsReaderProvider = projectEventsReaderProvider;
+    public JsonMobileProjectManager(Provider<Reader> projectDataReaderProvider) {
+        this(projectDataReaderProvider, false);
     }
 
     @Override
     public List<IMobileProjectEvent> getMobileProjectEvents(String projectName, int version) throws MobileProjectException {
+        if (isSkipInitProject()) {
+            return newArrayList();
+        }
+
         Reader reader = projectDataReaderProvider.get();
         List<JsonElement> jsonElements = parseJsonArray(reader);
         JsonElement jsonElement = jsonElements.get(0);
@@ -67,5 +71,9 @@ public class JsonMobileProjectManager implements IMobileProjectManager {
 
     @Override
     public void acknowledge(Collection<Integer> eventIds, EventAcknowledgementStatus acknowledgementStatus) throws Exception {
+    }
+
+    public boolean isSkipInitProject() {
+        return skipInitProject;
     }
 }

@@ -16,7 +16,7 @@ public class JsonMobileProjectManagerTest {
 
     @BeforeTest
     public void setUp() throws Exception {
-        projectManager = new JsonMobileProjectManager(newResourceReaderProvider("/mobile-projects.json"), null);
+        projectManager = new JsonMobileProjectManager(newResourceReaderProvider("/mobile-projects.json"), false);
     }
 
     @Test
